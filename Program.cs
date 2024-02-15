@@ -14,10 +14,20 @@ namespace Battleship
             Player[] players = { new Player("Gracz 1"), new Player("Gracz 2") };
 
             {
-                Console.WriteLine("Gra w Statki");
+                Console.WriteLine(" $$$$$$\\    $$\\                $$\\     $$\\       $$\\");
+                Console.WriteLine("$$  __$$\\   $$ |               $$ |    $$ |      \\__|");
+                Console.WriteLine("$$ /  \\__|$$$$$$\\    $$$$$$\\ $$$$$$\\   $$ |  $$\\ $$\\");
+                Console.WriteLine("\\$$$$$$\\  \\_$$  _|   \\____$$\\\\_$$  _|  $$ | $$  |$$ |");
+                Console.WriteLine(" \\____$$\\   $$ |     $$$$$$$ | $$ |    $$$$$$  / $$ |");
+                Console.WriteLine("$$\\   $$ |  $$ |$$\\ $$  __$$ | $$ |$$\\ $$  _$$<  $$ |");
+                Console.WriteLine("\\$$$$$$  |  \\$$$$  |\\$$$$$$$ | \\$$$$  |$$ | \\$$\\ $$ |");
+                Console.WriteLine(" \\______/    \\____/  \\_______|  \\____/ \\__|  \\__|\\__|\n");
+
                 Console.WriteLine("1. Multiplayer");
                 Console.WriteLine("2. Zagraj z komputerem");
-                Console.WriteLine("2. Wyjdź");
+                Console.WriteLine("3. Ustawienia");
+                Console.WriteLine("4. Legenda");
+                Console.WriteLine("5. Wyjdź");
 
                 bool correctKey = false;
                 int i = 0;
@@ -39,6 +49,13 @@ namespace Battleship
                         case '3':
                             correctKey = true;
                             break;
+                        case '4':
+                            correctKey = true;
+                            break;
+                        case '5':
+                            correctKey = true;
+                            break;
+
                     }
                     i++;
                 } while (!correctKey);

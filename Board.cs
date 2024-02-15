@@ -9,7 +9,7 @@ namespace Battleship
     enum BoardStatus { Empty, EmptyChecked, HitShip, Ship}
     internal abstract class Board
     {
-        protected BoardStatus[,] status = new BoardStatus[10, 10];
+        public BoardStatus[,] status = new BoardStatus[10, 10];
 
         public Board() {
             for (int i = 0; i < 10; i++)
@@ -47,8 +47,10 @@ namespace Battleship
                         continue;
                     }
 
+                    Console.BackgroundColor = ConsoleColor.Blue;
                     Console.Write(GetBoardStatusChar(status[i, j]));
                     Console.Write(' ');
+                    Console.BackgroundColor = ConsoleColor.Black;
                 }
 
                 Console.Write("\n");

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Battleship
 {
+    enum Direction { Horizontal, Vertical};
     internal class Game
     {
         private Player[] _players;
@@ -38,7 +39,17 @@ namespace Battleship
 
         public void SetUpShips()
         {
-            Console.WriteLine("Na początek musisz wybrać położenie swoich statków.");
+
+            foreach (KeyValuePair<int, bool[]> entry in _currentPlayer.ShipsSetUp)
+            {
+                var shipLength = entry.Key;
+                for (int i = 0; i < entry.Value.Length; i++)
+                {
+                    _currentPlayer.MyBoard.PlaceShip(shipLength, i + 1);
+                    Console.Clear();
+                    Display();
+                }
+            }
 
         }
 

@@ -44,13 +44,5 @@ namespace Battleship
                 [4] = 1,
             };
         }
-
-        public void DisplayNonSetUpShips()
-        {
-            foreach (KeyValuePair<int, bool[]> entry in ShipsSetUp)
-            {
-                // Count 
-            }
-        }
     }
 }
