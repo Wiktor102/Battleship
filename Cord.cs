@@ -19,7 +19,7 @@ namespace Battleship
 
         public string AsText() { return $"{Convert.ToChar(x + (int)'A')}{y + 1}"; }
 
-        public static Cord PromptForCord(string errorMsg)
+        public static Cord PromptForCord()
         {
             var valid = false;
             int i = -1;
@@ -29,10 +29,12 @@ namespace Battleship
                 i++;
                 if (i > 0)
                 {
-                    IO.DisplayError(errorMsg, true);
+                    IO.DisplayError("Niepoprawne pole, wybierz ponownie: ", true);
                 }
 
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 var cordAsString = Console.ReadLine();
+                Console.ForegroundColor = ConsoleColor.White;
                 if (cordAsString.Length != 2 && cordAsString.Length != 3) continue;
 
                 var letter = cordAsString.Substring(0, 1);

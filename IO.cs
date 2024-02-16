@@ -8,12 +8,26 @@ namespace Battleship
 {
     internal abstract class IO
     {
+        public static void DisplaySuccess(string msg, bool inline = false)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            if (inline) Console.Write(msg);  else Console.WriteLine(msg);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+        public static void DisplayWarning(string msg, bool inline = false)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            if (inline) Console.Write(msg);  else Console.WriteLine(msg);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
         public static void DisplayError(string msg, bool inline = false)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             if (inline) Console.Write(msg);  else Console.WriteLine(msg);
             Console.ForegroundColor = ConsoleColor.White;
         }
+
 
         public static Direction PromptForDirection()
         {

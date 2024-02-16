@@ -14,6 +14,7 @@ namespace Battleship
             Player[] players = { new Player("Gracz 1"), new Player("Gracz 2") };
 
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine(" $$$$$$\\    $$\\                $$\\     $$\\       $$\\");
                 Console.WriteLine("$$  __$$\\   $$ |               $$ |    $$ |      \\__|");
                 Console.WriteLine("$$ /  \\__|$$$$$$\\    $$$$$$\\ $$$$$$\\   $$ |  $$\\ $$\\");
@@ -22,6 +23,7 @@ namespace Battleship
                 Console.WriteLine("$$\\   $$ |  $$ |$$\\ $$  __$$ | $$ |$$\\ $$  _$$<  $$ |");
                 Console.WriteLine("\\$$$$$$  |  \\$$$$  |\\$$$$$$$ | \\$$$$  |$$ | \\$$\\ $$ |");
                 Console.WriteLine(" \\______/    \\____/  \\_______|  \\____/ \\__|  \\__|\\__|\n");
+                Console.ForegroundColor = ConsoleColor.White;
 
                 Console.WriteLine("1. Multiplayer");
                 Console.WriteLine("2. Zagraj z komputerem");
@@ -38,13 +40,10 @@ namespace Battleship
                         case '1':
                             correctKey = true;
                             CurrentGame = new Game(players);
-                            Console.WriteLine("\n Press any key to exit...");
-                            Console.ReadKey();
+                            //TODO: Implement repeat game
                             break;
                         case '2':
                             correctKey = true;
-                            Console.WriteLine("\n Press any key to exit...");
-                            Console.ReadKey();
                             break;
                         case '3':
                             correctKey = true;
