@@ -29,7 +29,8 @@ namespace Battleship
         public ShootSuccess Shoot(Board enemyBoard) {
             int i = 0;
             Cord cord;
-            bool correct = true;
+            bool correctCord = true;
+
             do
             {
                 if (i > 0)
@@ -38,19 +39,24 @@ namespace Battleship
                 }
 
                 cord = Cord.PromptForCord();
-                if (enemyBoard.status[cord.y, cord.x].IsHit) correct = false;
+                if (enemyBoard.status[cord.y, cord.x].IsHit) correctCord = false;
                 
                 i++;
-            } while (!correct);
+            } while (!correctCord);
 
-            enemyBoard.status[cord.y, cord.x].IsHit = true;
+            enemyBoard.status[cord.y, cord.x].Hit();
             var hitCell = enemyBoard.status[cord.y, cord.x];
 
 
-            if (hitCell is ShipBoardCell)
+            if (hitCell is ShipBoardCell tmp)
             {
-                var tmp = (ShipBoardCell)hitCell;
-                return tmp.IsSunken ? ShootSuccess.FullSuccess: ShootSuccess.Success;
+                if (tmp.ParentShip.IsSunken)
+                {
+                    enemyBoard.SurroundShip(tmp.ParentShip);
+                    return ShootSuccess.FullSuccess;
+                }
+
+                return ShootSuccess.Success;
             }
 
             return ShootSuccess.Failure;

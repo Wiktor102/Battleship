@@ -10,12 +10,18 @@ namespace Battleship
     {
         
         public int Size;
-        public bool Sunken = false;
-        private List<ShipBoardCell> _shipCells = new List<ShipBoardCell>();
+        public bool IsSunken = false;
+
+        public Cord FirstCord;
+        public Direction ShipDirection;
+
+        private readonly List<ShipBoardCell> _shipCells = new List<ShipBoardCell>();
 
         public Ship(int size, Cord firstCell, Direction dir, Board board)
         {
             Size = size;
+            FirstCord = firstCell;
+            ShipDirection = dir;
 
             for (int i = 0; i < Size; i++)
             {
@@ -30,12 +36,13 @@ namespace Battleship
             }
         }
         public bool CheckIfSunken() {
+            Console.WriteLine(_shipCells.Count);
             foreach (var cell in _shipCells)
             {
                 if (!cell.IsHit) return false;
             }
 
-            Sunken = true;
+            IsSunken = true;
             return true;
         }
 
