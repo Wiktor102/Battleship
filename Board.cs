@@ -79,7 +79,7 @@ namespace Battleship {
         public virtual void Display(bool showShipPositions) {
             Console.BackgroundColor = ConsoleColor.Blue;
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(!IsHit ? "~ " : "X ");
+            Console.Write(!IsHit ? "~ " : (this is ShipBoardCell ? "X " : "O "));
 
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
