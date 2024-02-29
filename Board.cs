@@ -49,18 +49,18 @@ namespace Battleship {
 
             if (ship.ShipDirection == Direction.Horizontal) {
                 if (firstX - 1 >= 0) status[firstY, firstX - 1]?.Hit();
-                if (firstX + ship.Size + 1 < 10) status[firstY, firstX + ship.Size + 1]?.Hit();
+                if (firstX + ship.Size + 1 < 10) status[firstY, firstX + ship.Size]?.Hit();
 
-                for (int i = firstX - 1; i <= firstX + ship.Size + 1; i++) {
+                for (int i = firstX - 1; i <= firstX + ship.Size; i++) {
                     if (i > 10 || i < 0) continue;
                     if (firstY - 1 >= 0) status[firstY - 1, i]?.Hit();
                     if (firstY + 1 < 10) status[firstY + 1, i]?.Hit();
                 }
             } else {
                 if (firstY - 1 >= 0) status[firstY - 1, firstX]?.Hit();
-                if (firstY + ship.Size + 1 < 10) status[firstY + ship.Size + 1, firstX]?.Hit();
+                if (firstY + ship.Size + 1 < 10) status[firstY + ship.Size, firstX]?.Hit();
                 
-                for (int i = firstY - 1; i <= firstY + ship.Size + 1; i++) {
+                for (int i = firstY - 1; i <= firstY + ship.Size; i++) {
                     if (i > 10 || i < 0) continue;
                     if (firstX - 1 >= 0) status[i, firstX - 1]?.Hit();
                     if (firstX + 1 < 10) status[i, firstX + 1]?.Hit();
