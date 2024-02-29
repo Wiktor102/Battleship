@@ -31,7 +31,7 @@ namespace Battleship
             IO.DisplayColored(msg, ConsoleColor.Red, ConsoleColor.Black, inline);
         }
 
-        public static bool promptForBool() {
+        public static bool PromptForBool() {
             int i = 0;
             while (true) {
                 if (i > 0) {
