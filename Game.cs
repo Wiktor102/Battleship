@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Media;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,10 @@ namespace Battleship {
 
             ResetBoards();
             GameLoop();
+
+            Player winner = _currentPlayer;
+            winner.WonGames++;
+            IO.DisplaySuccess($"Wygrał {winner.Name} \n");
         }
 
         private void ResetBoards() {
@@ -33,15 +38,17 @@ namespace Battleship {
         }
 
         private void GameLoop() {
-            while (!CheckIfGameEnded()) {
+            while (true) {
+                bool gameEnded = false;
                 Display();
 
                 if (round == 0) {
                     SetUpShips();
                 } else {
-                    Turn();
+                    gameEnded = Turn();
                 }
 
+                if (gameEnded) break;
                 ChangePlayer();
             }
         }
@@ -50,6 +57,7 @@ namespace Battleship {
 
             foreach (KeyValuePair<int, bool[]> entry in _currentPlayer.ShipsSetUp) {
                 var shipLength = entry.Key;
+
                 for (int i = 0; i < entry.Value.Length; i++) {
                     _currentPlayer.Ships.Add(Ship.Place(_currentPlayer.board, shipLength, i + 1));
                     Console.Clear();
@@ -59,20 +67,25 @@ namespace Battleship {
 
         }
 
-        private void Turn() {
+        private bool Turn() {
             ShootResult result;
+            bool gameEnded;
 
             do {
                 Console.Write("Wybierz pole do strzału: ");
                 result = _currentPlayer.Shoot(_otherPlayer.board);
                 Display();
 
+                gameEnded = CheckIfGameEnded();
+
                 switch (result) {
                     case ShootResult.FullSuccess:
                         IO.DisplaySuccess("Udało ci się zatopić statek przeciwnika!");
+                        if (gameEnded) break;
                         continue;
                     case ShootResult.Success:
                         IO.DisplaySuccess("Udało ci się trafić w statek przeciwnika!");
+                        if (gameEnded) break;
                         continue;
                     case ShootResult.Failure:
                         IO.DisplayWarning("Nie udało ci się trafić w statek przeciwnika!");
@@ -80,6 +93,8 @@ namespace Battleship {
 
                 }
             } while (result != ShootResult.Failure);
+
+            return gameEnded;
         }
 
         public void ChangePlayer() {
@@ -107,7 +122,11 @@ namespace Battleship {
         }
 
         private bool CheckIfGameEnded() {
-            return round > 3;
+            if (_players[0].GetTotalRamaningShips() == 0 || _players[1].GetTotalRamaningShips() == 0) {
+                return true;
+            }
+
+            return false;
         }
 
         private void Display() {
@@ -123,6 +142,14 @@ namespace Battleship {
             _currentPlayer.board.Display();
             Console.WriteLine("\nPlansza przeciwnika:");
             _otherPlayer.board.Display(false);
+        }
+    
+        public static void RunGame(Player[] players) {
+            while (true) {
+                new Game(players);
+                IO.DisplayWarning("Gra zakończona. Czy chcesz zagrać ponownie? (T/N)");
+                if (!IO.PromptForBool()) break;
+            }
         }
     }
 }
