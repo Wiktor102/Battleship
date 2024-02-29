@@ -31,6 +31,26 @@ namespace Battleship
             IO.DisplayColored(msg, ConsoleColor.Red, ConsoleColor.Black, inline);
         }
 
+        public static bool promptForBool() {
+            int i = 0;
+            while (true) {
+                if (i > 0) {
+                    IO.DisplayError("Wprowadzono złą wartość. Wyperz ponownie: (T / N)", true);
+                }
+
+                i++;
+
+                switch (Console.ReadKey().KeyChar) {
+                    case 'T':
+                    case 't':
+                        return true;
+                    case 'N':
+                    case 'n':
+                        return false;
+                }
+            };
+
+        }
 
         public static Direction PromptForDirection()
         {
