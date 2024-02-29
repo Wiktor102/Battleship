@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Battleship
 {
-    enum ShootSuccess {  FullSuccess, Success, Failure }
+    enum ShootResult {  FullSuccess, Success, Failure }
     internal class Player
     {
         public string Name;
@@ -26,7 +26,7 @@ namespace Battleship
             ResetBoards();
         }
 
-        public ShootSuccess Shoot(Board enemyBoard) {
+        public ShootResult Shoot(Board enemyBoard) {
             int i = 0;
             Cord cord;
             bool correctCord = true;
@@ -53,13 +53,13 @@ namespace Battleship
                 if (tmp.ParentShip.IsSunken)
                 {
                     enemyBoard.SurroundShip(tmp.ParentShip);
-                    return ShootSuccess.FullSuccess;
+                    return ShootResult.FullSuccess;
                 }
 
-                return ShootSuccess.Success;
+                return ShootResult.Success;
             }
 
-            return ShootSuccess.Failure;
+            return ShootResult.Failure;
         }
 
         public void ResetBoards()
