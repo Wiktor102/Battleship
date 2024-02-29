@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace Battleship {
     internal class Program {
         static void Main(string[] args) {
-            new MainMenu();
+			Console.OutputEncoding = Encoding.UTF8;
+			new MainMenu();
         }
     }
 }

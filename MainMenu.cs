@@ -8,6 +8,9 @@ namespace Battleship {
     internal class MainMenu {
         Player[] Players = new Player[] { new Player("Gracz 1"), new Player("Gracz 2") };
 
+        private int _selectedOption = 1;
+		private string[] _options = new string[] { "Multiplayer", "Zagraj z komputerem", "Ustawienia", "Legenda", "Wyjdź" };
+
         public MainMenu() {
             do {
                 Display();
@@ -28,37 +31,51 @@ namespace Battleship {
             Console.WriteLine(" \\______/    \\____/  \\_______|  \\____/ \\__|  \\__|\\__|\n");
             Console.ForegroundColor = ConsoleColor.White;
 
-            Console.WriteLine("1. Multiplayer");
-            Console.WriteLine("2. Zagraj z komputerem");
-            Console.WriteLine("3. Ustawienia");
-            Console.WriteLine("4. Legenda");
-            Console.WriteLine("5. Wyjdź");
+
+            for (int i = 1; i <= _options.Length; i++) {
+                string msg = $" {i}. {_options[i - 1]} ";
+				if (i == _selectedOption) {
+                    IO.DisplayColored(msg,  ConsoleColor.Black, ConsoleColor.White);
+                    continue;
+				}
+
+                Console.WriteLine(msg);
+			}
+
+            Console.WriteLine("↑/↓ nawigacja   ↲ zatwierdż");
         }
 
         private bool ReadKey() {
-            bool correctKey = false;
             do {
-                switch (Console.ReadKey().KeyChar) {
-                    case '1':
-                        correctKey = true;
+                var pressedKey = Console.ReadKey();
+
+				if (pressedKey.Key == ConsoleKey.UpArrow) {
+					_selectedOption = _selectedOption == 1 ? _options.Length : _selectedOption - 1;
+                    Display();
+				}
+
+                if (pressedKey.Key == ConsoleKey.DownArrow) {
+					_selectedOption = _selectedOption == _options.Length ? 1 : _selectedOption + 1;
+                    Display();
+				}
+
+                if (pressedKey.Key != ConsoleKey.Enter) continue;
+
+                switch (_selectedOption) {
+                    case 1:
                         Game.RunGame(Players);
                         break;
-                    case '2':
-                        correctKey = true;
+                    case 2:
                         break;
-                    case '3':
-                        correctKey = true;
+                    case 3:
                         break;
-                    case '4':
-                        correctKey = true;
+                    case 4:
                         break;
-                    case '5':
+                    case 5:
                         return false;
 
                 }
-            } while (!correctKey);
-
-            return true;
+            } while (true);
         }
     }
 }
