@@ -13,8 +13,15 @@ namespace Battleship
             Console.ForegroundColor = fg;
             Console.BackgroundColor = bg;
             if (inline) Console.Write(msg); else Console.WriteLine(msg);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ResetColor();
+        }
+
+        public static string ReadLineColored(ConsoleColor fg, ConsoleColor bg = ConsoleColor.Black) {
+            Console.ForegroundColor = fg;
+            Console.BackgroundColor = bg;
+            string input = Console.ReadLine();
+            Console.ResetColor();
+            return input;
         }
 
         public static void DisplaySuccess(string msg, bool inline = false)
