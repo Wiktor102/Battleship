@@ -25,14 +25,15 @@ namespace Battleship
 
             for (int i = 0; i < Size; i++)
             {
+                ShipBoardCell cell = new ShipBoardCell(this);
+                _shipCells.Add(cell);
+
                 if (dir == Direction.Horizontal)
                 {
-                    board.status[firstCell.y, firstCell.x + i] = new ShipBoardCell(this);
-                    continue;
+                    board.status[firstCell.y, firstCell.x + i] = cell;
+                } else {
+                    board.status[firstCell.y + i, firstCell.x] = cell;
                 }
-
-                _shipCells.Add(new ShipBoardCell(this));
-                board.status[firstCell.y + i, firstCell.x] = _shipCells.Last();
             }
         }
         public bool CheckIfSunken() {
