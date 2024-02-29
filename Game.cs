@@ -34,7 +34,7 @@ namespace Battleship {
                 if (round == 0) {
                     SetUpShips();
                 } else {
-                    ShootSuccess result;
+                    ShootResult result;
 
                     do {
                         Console.Write("Wybierz pole do strzału: ");
@@ -42,18 +42,18 @@ namespace Battleship {
                         Display();
 
                         switch (result) {
-                            case ShootSuccess.FullSuccess:
+                            case ShootResult.FullSuccess:
                                 IO.DisplaySuccess("Udało ci się zatopić statek przeciwnika!");
                                 continue;
-                            case ShootSuccess.Success:
+                            case ShootResult.Success:
                                 IO.DisplaySuccess("Udało ci się trafić w statek przeciwnika!");
                                 continue;
-                            case ShootSuccess.Failure:
+                            case ShootResult.Failure:
                                 IO.DisplayWarning("Nie udało ci się trafić w statek przeciwnika!");
                                 break;
 
                         }
-                    } while (result != ShootSuccess.Failure);
+                    } while (result != ShootResult.Failure);
                 }
 
                 ChangePlayer();
