@@ -47,7 +47,7 @@ namespace Battleship {
 
         private bool ReadKey() {
             do {
-                var pressedKey = Console.ReadKey();
+                var pressedKey = Console.ReadKey(true);
 
 				if (pressedKey.Key == ConsoleKey.UpArrow) {
 					_selectedOption = _selectedOption == 1 ? _options.Length : _selectedOption - 1;
