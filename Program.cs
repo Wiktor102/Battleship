@@ -8,7 +8,7 @@ namespace Battleship {
     internal class Program {
         static void Main(string[] args) {
 			Console.OutputEncoding = Encoding.UTF8;
-			new MainMenu();
+            new MainMenu();
         }
     }
 }
