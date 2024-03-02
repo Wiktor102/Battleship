@@ -42,7 +42,7 @@ namespace Battleship {
                 Console.WriteLine(msg);
 			}
 
-            Console.WriteLine("↑/↓ nawigacja   ↲ zatwierdż");
+            IO.DisplayColored("\n↑/↓ nawigacja   ↲ zatwierdż", ConsoleColor.DarkGray);
         }
 
         private bool ReadKey() {
@@ -70,12 +70,67 @@ namespace Battleship {
                     case 3:
                         break;
                     case 4:
-                        break;
+                        DisplayLegendMenu();
+						break;
                     case 5:
                         return false;
 
                 }
+
+                Display();
             } while (true);
         }
+
+        private void DisplayLegendMenu() {
+            Console.Clear();
+            IO.DisplayTitle(new []{
+				" _                               _         ",
+				"| |                             | |      _ ",
+				"| |     ___  __ _  ___ _ __   __| | __ _(_)",
+				"| |    / _ \\/ _` |/ _ \\ '_ \\ / _` |/ _` |  ",
+				"| |___|  __/ (_| |  __/ | | | (_| | (_| |_ ",
+				"|______\\___|\\__, |\\___|_| |_|\\__,_|\\__,_(_)",
+				"            |___/                          \n"
+			});
+
+            IO.DisplaySuccess("Twoja plansza:");
+            IO.DisplayColored(" ~  ", ConsoleColor.White, ConsoleColor.Blue, true);
+            Console.WriteLine(" - nieodkryte pole");
+
+            IO.DisplayColored(" X  ", ConsoleColor.White, ConsoleColor.Blue, true);
+            Console.WriteLine(" - puste pole (w krótre oddano strzał)");
+
+            DisplayFieldExample(" ", ConsoleColor.White);
+			Console.WriteLine(" - statek (nietrafiony)");
+
+            DisplayFieldExample("X", ConsoleColor.Gray, ConsoleColor.DarkRed);
+            Console.WriteLine(" - zastrzelona część statku");
+
+            DisplayFieldExample("X", ConsoleColor.DarkGray, ConsoleColor.Red);
+            Console.WriteLine(" - zatopiony statek");
+
+
+			IO.DisplaySuccess("\nPlansza przeciwnika:");
+            IO.DisplayColored(" ~  ", ConsoleColor.White, ConsoleColor.Blue, true);
+            Console.WriteLine(" - nieodkryte pole");
+
+            IO.DisplayColored(" O  ", ConsoleColor.White, ConsoleColor.Blue, true);
+            Console.WriteLine(" - puste pole (odkryte)");
+
+			DisplayFieldExample("X", ConsoleColor.Gray, ConsoleColor.DarkGreen);
+			Console.WriteLine(" - zastrzelona część statku");
+
+			DisplayFieldExample("X", ConsoleColor.DarkGray, ConsoleColor.Green);
+			Console.WriteLine(" - zatopiony statek");
+
+            IO.DisplayColored("\nNaciśnij dowlony klawisz by wrócić...", ConsoleColor.DarkGray);
+            Console.ReadKey(true);
+
+            void DisplayFieldExample (string symbol, ConsoleColor bg, ConsoleColor fg = ConsoleColor.White) {
+				IO.DisplayColored(" ", ConsoleColor.White, ConsoleColor.Blue, true);
+				IO.DisplayColored(symbol + " ", fg, bg, true);
+				IO.DisplayColored(" ", ConsoleColor.White, ConsoleColor.Blue, true);
+			}
+		}
     }
 }

@@ -24,6 +24,15 @@ namespace Battleship
             return input;
         }
 
+        public static void DisplayTitle(string[] title) {
+			Console.ForegroundColor = ConsoleColor.Cyan;
+            foreach (string line in title) {
+			    Console.WriteLine(line);
+            }
+
+			Console.ResetColor();
+		}
+
         public static void DisplaySuccess(string msg, bool inline = false)
         {
             IO.DisplayColored(msg, ConsoleColor.Green, ConsoleColor.Black, inline);
