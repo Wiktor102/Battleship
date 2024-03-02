@@ -28,7 +28,8 @@ namespace Battleship {
 				}
 
 				cord = Cord.PromptForCord();
-				if (!enemyBoard.status[cord.y, cord.x].IsHit) break; // Brake loop if cell hasn't been hit yet
+                BoardCell cellAtCord = enemyBoard.status[cord.y, cord.x];
+				if (!cellAtCord.IsHit && (cellAtCord is ShipBoardCell || !((EmptyBoardCell)cellAtCord).IsBlocked)) break; // Brake loop if cell hasn't been hit yet and isn't blocked
 			}
 
             enemyBoard.status[cord.y, cord.x].Hit();

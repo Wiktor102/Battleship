@@ -23,6 +23,7 @@ namespace Battleship {
 			//[3] = 2,
 			//[4] = 1,
 			[1] = 1,
+			[2] = 1,
 		};
 
 		private int round = 0;

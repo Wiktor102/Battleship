@@ -11,7 +11,7 @@ namespace Battleship {
 		public Board() {
 			for (int i = 0; i < 10; i++) {
 				for (int j = 0; j < 10; j++) {
-					status[i, j] = new BoardCell();
+					status[i, j] = new EmptyBoardCell();
 				}
 			}
 		}
@@ -48,35 +48,51 @@ namespace Battleship {
 			int firstY = ship.FirstCord.y;
 
 			if (ship.ShipDirection == Direction.Horizontal) {
-				if (firstX - 1 >= 0) status[firstY, firstX - 1]?.Hit();
-				if (firstX + ship.Size + 1 < 10) status[firstY, firstX + ship.Size]?.Hit();
+				if (firstX - 1 >= 0) ((EmptyBoardCell)status[firstY, firstX - 1])?.MakrAsBlocked();
+				if (firstX + ship.Size + 1 < 10) ((EmptyBoardCell)status[firstY, firstX + ship.Size])?.MakrAsBlocked();
 
 				for (int i = firstX - 1; i <= firstX + ship.Size; i++) {
 					if (i > 10 || i < 0) continue;
-					if (firstY - 1 >= 0) status[firstY - 1, i]?.Hit();
-					if (firstY + 1 < 10) status[firstY + 1, i]?.Hit();
+					if (firstY - 1 >= 0) ((EmptyBoardCell)status[firstY - 1, i])?.MakrAsBlocked();
+					if (firstY + 1 < 10) ((EmptyBoardCell)status[firstY + 1, i])?.MakrAsBlocked();
 				}
 			} else {
-				if (firstY - 1 >= 0) status[firstY - 1, firstX]?.Hit();
-				if (firstY + ship.Size + 1 < 10) status[firstY + ship.Size, firstX]?.Hit();
+				if (firstY - 1 >= 0) ((EmptyBoardCell)status[firstY - 1, firstX])?.Hit();
+				if (firstY + ship.Size + 1 < 10) ((EmptyBoardCell)status[firstY + ship.Size, firstX])?.MakrAsBlocked();
 
 				for (int i = firstY - 1; i <= firstY + ship.Size; i++) {
 					if (i > 10 || i < 0) continue;
-					if (firstX - 1 >= 0) status[i, firstX - 1]?.Hit();
-					if (firstX + 1 < 10) status[i, firstX + 1]?.Hit();
+					if (firstX - 1 >= 0) ((EmptyBoardCell)status[i, firstX - 1])?.MakrAsBlocked();
+					if (firstX + 1 < 10) ((EmptyBoardCell)status[i, firstX + 1])?.MakrAsBlocked();
 				}
 			}
 		}
 	}
 
-	internal class BoardCell {
+	internal abstract class BoardCell {
 		public virtual bool IsHit { get; set; } = false;
+
 
 		public void Hit() {
 			IsHit = true;
 		}
 
-		public virtual void Display(bool isOwnBoard) {
+		public abstract void Display(bool isOwnBoard);
+	}
+
+	internal class EmptyBoardCell : BoardCell {
+		public bool IsBlocked { get; private set; } = false;
+
+		public void MakrAsBlocked() {
+			IsBlocked = true;
+		}
+
+		public override void Display(bool isOwnBoard) {
+			if (IsBlocked) {
+				IO.DisplayColored("# ", ConsoleColor.White, ConsoleColor.Blue, true);
+				return;
+			}
+
 			if (!IsHit) {
 				IO.DisplayColored("~ ", ConsoleColor.White, ConsoleColor.Blue, true);
 				return;
