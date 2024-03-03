@@ -81,7 +81,7 @@ namespace Battleship {
 			bool gameEnded;
 
 			do {
-				Console.Write("Wybierz pole do strzału: ");
+				Console.Write("Wybierz pole do strzału (np. A1): ");
 				result = _currentPlayer.Shoot(_otherPlayer.board);
 				Display();
 

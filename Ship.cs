@@ -51,7 +51,12 @@ namespace Battleship {
 					IO.DisplayError("\nWybrałeś niepoprawną pozycję statku!");
 				}
 
-				Console.Write($"Wybierz pole by umieścić statek {shipSize} masztowy nr {shipNumber}: ");
+				Console.Write("Wybierz pole by umieścić statek ");
+				IO.DisplayColored(shipNumber.ToString(), ConsoleColor.Cyan, ConsoleColor.Black, true);
+				Console.Write(" masztowy nr ");
+				IO.DisplayColored(shipSize.ToString(), ConsoleColor.Cyan, ConsoleColor.Black, true);
+				Console.Write(" (np. A1): ");
+
 				firstFieldCord = Cord.PromptForCord();
 				dir = shipSize == 1 ? Direction.Horizontal : IO.PromptForDirection();
 
