@@ -17,7 +17,7 @@ namespace Battleship {
 		private Player _currentPlayer;
 		private Player _otherPlayer;
 
-		private Dictionary<int, int> _allShips = new Dictionary<int, int> {
+		public static Dictionary<int, int> AllShips = new Dictionary<int, int> {
 			//[1] = 4,
 			//[2] = 3,
 			//[3] = 2,
@@ -53,26 +53,13 @@ namespace Battleship {
 				Display(round != 0);
 
 				if (round == 0) {
-					SetUpShips();
+					_currentPlayer.SetUpShips(Display);
 				} else {
 					gameEnded = Turn();
 				}
 
 				if (gameEnded) break;
 				ChangePlayer();
-			}
-		}
-
-		private void SetUpShips() {
-
-			foreach (KeyValuePair<int, int> entry in _allShips) {
-				var shipLength = entry.Key;
-
-				for (int i = 0; i < entry.Value; i++) {
-					IO.DisplayColored("Na początek musisz wybrać położenie swoich statków.", ConsoleColor.Yellow);
-					_currentPlayer.Ships.Add(Ship.Place(_currentPlayer.board, shipLength, i + 1));
-					Display(false);
-				}
 			}
 		}
 

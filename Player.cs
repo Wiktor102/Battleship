@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Battleship {
     enum ShootResult { FullSuccess, Success, Failure }
     internal class Player {
+        public delegate void DisplayFunc(bool showEnemyBoard);
         public string Name;
         public int WonGames;
 
@@ -19,7 +20,19 @@ namespace Battleship {
             ResetBoards();
         }
 
-        public ShootResult Shoot(Board enemyBoard) {
+		public virtual void SetUpShips(DisplayFunc displayCallback) {
+			foreach (KeyValuePair<int, int> entry in Game.AllShips) {
+				var shipLength = entry.Key;
+
+				for (int i = 0; i < entry.Value; i++) {
+					IO.DisplayColored("Na początek musisz wybrać położenie swoich statków.", ConsoleColor.Yellow);
+					Ships.Add(Ship.Place(board, shipLength, i + 1));
+					displayCallback(false);
+				}
+			}
+		}
+
+		public virtual ShootResult Shoot(Board enemyBoard) {
             Cord cord;
 
             for (int i = 0;  true; i++) {
