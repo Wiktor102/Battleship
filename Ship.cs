@@ -4,87 +4,74 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Battleship
-{
-    internal class Ship
-    {
-        
-        public int Size;
-        public bool IsSunken = false;
+namespace Battleship {
+	internal class Ship {
 
-        public Cord FirstCord;
-        public Direction ShipDirection;
+		public int Size;
+		public bool IsSunken = false;
 
-        private readonly List<ShipBoardCell> _shipCells = new List<ShipBoardCell>();
+		public Cord FirstCord;
+		public Direction ShipDirection;
 
-        public Ship(int size, Cord firstCell, Direction dir, Board board)
-        {
-            Size = size;
-            FirstCord = firstCell;
-            ShipDirection = dir;
+		private readonly List<ShipBoardCell> _shipCells = new List<ShipBoardCell>();
 
-            for (int i = 0; i < Size; i++)
-            {
-                ShipBoardCell cell = new ShipBoardCell(this);
-                _shipCells.Add(cell);
+		public Ship(int size, Cord firstCell, Direction dir, Board board) {
+			Size = size;
+			FirstCord = firstCell;
+			ShipDirection = dir;
 
-                if (dir == Direction.Horizontal)
-                {
-                    board.status[firstCell.y, firstCell.x + i] = cell;
-                } else {
-                    board.status[firstCell.y + i, firstCell.x] = cell;
-                }
-            }
-        }
-        public bool CheckIfSunken() {
-            Console.WriteLine(_shipCells.Count);
-            foreach (var cell in _shipCells)
-            {
-                if (!cell.IsHit) return false;
-            }
+			for (int i = 0; i < Size; i++) {
+				ShipBoardCell cell = new ShipBoardCell(this);
+				_shipCells.Add(cell);
 
-            IsSunken = true;
-            return true;
-        }
+				if (dir == Direction.Horizontal) {
+					board.status[firstCell.y, firstCell.x + i] = cell;
+				} else {
+					board.status[firstCell.y + i, firstCell.x] = cell;
+				}
+			}
+		}
+		public bool CheckIfSunken() {
+			Console.WriteLine(_shipCells.Count);
+			foreach (var cell in _shipCells) {
+				if (!cell.IsHit) return false;
+			}
 
-        public static Ship Place(Board board, int shipLength, int shipNumber)
-        {
-            Console.WriteLine("Na początek musisz wybrać położenie swoich statków.");
-            Cord firstFieldCord;
-            Direction dir;
-            int i = 0;
-            bool correct = true;
+			IsSunken = true;
+			return true;
+		}
 
-            do
-            {
-                if (i > 0)
-                {
-                    IO.DisplayError("\nWybrałeś niepoprawną pozycję statku!");
-                }
+		public static Ship Place(Board board, int shipLength, int shipNumber) {
+			Cord firstFieldCord;
+			Direction dir;
+			int i = 0;
+			bool correct = true;
 
-                Console.Write($"Wybierz pole by umieścić statek {shipLength} masztowy nr {shipNumber}: ");
-                firstFieldCord = Cord.PromptForCord();
-                dir = shipLength == 1 ? Direction.Horizontal : IO.PromptForDirection();
+			do {
+				if (i > 0) {
+					IO.DisplayError("\nWybrałeś niepoprawną pozycję statku!");
+				}
 
-                for (int j = firstFieldCord.y - 1; j < (dir == Direction.Horizontal ? 3 : firstFieldCord.y + shipLength + 1) && j < 10; j++)
-                {
-                    if (j < 0) continue;
-                    for (int k = firstFieldCord.x - 1; k < (dir == Direction.Vertical ? 3 : firstFieldCord.x + shipLength + 1) && k < 10; k++)
-                    {
-                        if (k < 0) continue;
-                        if (k > 10 || board.status[j, k] is ShipBoardCell)
-                        {
-                            correct = false;
-                            break;
-                        }
-                    }
-                }
+				Console.Write($"Wybierz pole by umieścić statek {shipLength} masztowy nr {shipNumber}: ");
+				firstFieldCord = Cord.PromptForCord();
+				dir = shipLength == 1 ? Direction.Horizontal : IO.PromptForDirection();
 
-                i++;
-            } while (!correct);
+				for (int j = firstFieldCord.y - 1; j < (dir == Direction.Horizontal ? 3 : firstFieldCord.y + shipLength + 1) && j < 10; j++) {
+					if (j < 0) continue;
+					for (int k = firstFieldCord.x - 1; k < (dir == Direction.Vertical ? 3 : firstFieldCord.x + shipLength + 1) && k < 10; k++) {
+						if (k < 0) continue;
+						if (k > 10 || board.status[j, k] is ShipBoardCell) {
+							correct = false;
+							break;
+						}
+					}
+				}
 
-            return new Ship(shipLength, firstFieldCord, dir, board);
-        }
-    
-    }
+				i++;
+			} while (!correct);
+
+			return new Ship(shipLength, firstFieldCord, dir, board);
+		}
+
+	}
 }

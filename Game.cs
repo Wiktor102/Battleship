@@ -50,7 +50,7 @@ namespace Battleship {
 		private void GameLoop() {
 			while (true) {
 				bool gameEnded = false;
-				Display();
+				Display(round != 0);
 
 				if (round == 0) {
 					SetUpShips();
@@ -69,8 +69,9 @@ namespace Battleship {
 				var shipLength = entry.Key;
 
 				for (int i = 0; i < entry.Value; i++) {
+					IO.DisplayColored("Na początek musisz wybrać położenie swoich statków.", ConsoleColor.Yellow);
 					_currentPlayer.Ships.Add(Ship.Place(_currentPlayer.board, shipLength, i + 1));
-					Display();
+					Display(false);
 				}
 			}
 		}
@@ -137,7 +138,7 @@ namespace Battleship {
 			return false;
 		}
 
-		private void Display() {
+		private void Display(bool showEnemyBoard = true) {
 			Console.Clear();
 
 			DisplayCurrentPlayer();
@@ -145,8 +146,11 @@ namespace Battleship {
 
 			Console.WriteLine("Twoja plansza:");
 			_currentPlayer.board.Display();
-			Console.WriteLine("\nPlansza przeciwnika:");
-			_otherPlayer.board.Display(false);
+
+			if (showEnemyBoard) {
+				Console.WriteLine("\nPlansza przeciwnika:");
+				_otherPlayer.board.Display(false);
+			}
 		}
 
 		private void DisplayCurrentPlayer() {
