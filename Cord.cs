@@ -36,5 +36,10 @@ namespace Battleship {
 
 			throw new Exception("Something went wrong!");
 		}
+
+		public static Cord RandomCord() {
+			Random random = new Random();
+			return new Cord(random.Next(0, 10), random.Next(0, 10));
+		}
 	}
 }
