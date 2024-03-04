@@ -81,7 +81,7 @@ namespace Battleship {
 					if (firstY + 1 < 10) ((EmptyBoardCell)status[firstY + 1, i])?.MakrAsBlocked();
 				}
 			} else {
-				if (firstY - 1 >= 0) ((EmptyBoardCell)status[firstY - 1, firstX])?.Hit();
+				if (firstY - 1 >= 0) ((EmptyBoardCell)status[firstY - 1, firstX])?.MakrAsBlocked();
 				if (firstY + ship.Size + 1 < 10) ((EmptyBoardCell)status[firstY + ship.Size, firstX])?.MakrAsBlocked();
 
 				for (int i = firstY - 1; i <= firstY + ship.Size; i++) {
