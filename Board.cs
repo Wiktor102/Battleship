@@ -22,7 +22,7 @@ namespace Battleship {
 				if (firstFieldCord.x + shipSize + 1 < 10 && status[firstFieldCord.y, firstFieldCord.x + shipSize + 1] is ShipBoardCell) return false; // Cell to the right of the ship
 
 				for (int j = firstFieldCord.x - 1; j <= firstFieldCord.x + shipSize; j++) {
-					if (j > 10 || j < 0) continue;
+					if (j >= 10 || j < 0) continue;
 					if (firstFieldCord.y - 1 >= 0 && status[firstFieldCord.y - 1, j] is ShipBoardCell) return false; // Row above the ship
 					if (firstFieldCord.y + 1 < 10 && status[firstFieldCord.y + 1, j] is ShipBoardCell) return false; // Row below the ship
 				}
@@ -31,7 +31,7 @@ namespace Battleship {
 				if (firstFieldCord.y + shipSize + 1 < 10 && status[firstFieldCord.y + shipSize + 1, firstFieldCord.x] is ShipBoardCell) return false; // Cell below the ship
 
 				for (int j = firstFieldCord.y - 1; j <= firstFieldCord.y + shipSize; j++) {
-					if (j > 10 || j < 0) continue;
+					if (j >= 10 || j < 0) continue;
 					if (firstFieldCord.x - 1 >= 0 && status[j, firstFieldCord.x - 1] is ShipBoardCell) return false; // Left collumn
 					if (firstFieldCord.x + 1 < 10 && status[j, firstFieldCord.x + 1] is ShipBoardCell) return false; // Right collumn
 				}
