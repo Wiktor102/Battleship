@@ -5,7 +5,7 @@ using System.Linq;
 using System.Media;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Battleship {
 	enum Direction { Horizontal, Vertical };
@@ -23,7 +23,7 @@ namespace Battleship {
 			//[3] = 2,
 			//[4] = 1,
 			[1] = 1,
-			[2] = 1,
+			[3] = 1,
 		};
 
 		private int round = 0;
@@ -68,7 +68,7 @@ namespace Battleship {
 			bool gameEnded;
 
 			do {
-				Console.Write("Wybierz pole do strzału (np. A1): ");
+				if (!(_currentPlayer is Computer)) Console.Write("Wybierz pole do strzału (np. A1): ");
 				result = _currentPlayer.Shoot(_otherPlayer.board);
 				Display();
 
@@ -76,15 +76,15 @@ namespace Battleship {
 
 				switch (result) {
 					case ShootResult.FullSuccess:
-						IO.DisplaySuccess("Udało ci się zatopić statek przeciwnika!");
+						if (!(_currentPlayer is Computer)) IO.DisplaySuccess("Udało ci się zatopić statek przeciwnika!");
 						if (gameEnded) break;
 						continue;
 					case ShootResult.Success:
-						IO.DisplaySuccess("Udało ci się trafić w statek przeciwnika!");
+						if (!(_currentPlayer is Computer)) IO.DisplaySuccess("Udało ci się trafić w statek przeciwnika!");
 						if (gameEnded) break;
 						continue;
 					case ShootResult.Failure:
-						IO.DisplayWarning("Nie udało ci się trafić w statek przeciwnika!");
+						if (!(_currentPlayer is Computer)) IO.DisplayWarning("Nie udało ci się trafić w statek przeciwnika!");
 						break;
 
 				}
@@ -95,6 +95,31 @@ namespace Battleship {
 
 		public void ChangePlayer() {
 			Console.ForegroundColor = ConsoleColor.Yellow;
+			if (_otherPlayer is Computer) {
+				Player tmp = _currentPlayer;
+				_currentPlayer = _otherPlayer;
+				_otherPlayer = tmp;
+
+				Console.Clear();
+				Console.WriteLine($"Teraz gra {_currentPlayer.Name}...");
+				return;
+			} else if (_currentPlayer is Computer) {
+				Thread.Sleep((new Random()).Next(700, 1100));
+
+				Console.Clear();
+				Console.WriteLine($"{_currentPlayer.Name} zakończył swoją turę");
+				Console.WriteLine("Naciśnij dowolny klawisz by rozpocząć swoją turę...");
+				Console.ReadKey(true);
+
+				Player tmp = _currentPlayer;
+				_currentPlayer = _otherPlayer;
+				_otherPlayer = tmp;
+				round++;
+
+				Console.ResetColor();
+				return;
+			}
+
 			Console.Write("\nTwoja tura dobiegła końca. Naciśnij ENTER by przejść dalej...");
 			Console.ReadLine();
 			Console.Clear();
@@ -114,7 +139,7 @@ namespace Battleship {
 
 			Console.ReadLine();
 			Console.Clear();
-			Console.ForegroundColor = ConsoleColor.White;
+			Console.ResetColor();
 		}
 
 		private bool CheckIfGameEnded() {
@@ -126,6 +151,7 @@ namespace Battleship {
 		}
 
 		private void Display(bool showEnemyBoard = true) {
+			if (_currentPlayer is Computer) return;
 			Console.Clear();
 
 			DisplayCurrentPlayer();
@@ -156,7 +182,9 @@ namespace Battleship {
 			Console.WriteLine("--------------------------------------------------------------\n");
 		}
 
-		public static void RunGame(Player[] players) {
+		public static void RunGame(bool withComputer = false) {
+			Player[] players = new Player[] { new Player("Gracz 1"), withComputer ? new Computer() : new Player("Gracz 2") };
+
 			while (true) {
 				new Game(players);
 				IO.DisplayWarning("Gra zakończona. Czy chcesz zagrać ponownie? (T/N)");

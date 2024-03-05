@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace Battleship {
     internal class MainMenu {
-        Player[] Players = new Player[] { new Player("Gracz 1"), new Player("Gracz 2") };
-
         private int _selectedOption = 1;
 		private string[] _options = new string[] { "Multiplayer", "Zagraj z komputerem", "Ustawienia", "Legenda", "Wyjdź" };
 
@@ -63,9 +61,10 @@ namespace Battleship {
 
                 switch (_selectedOption) {
                     case 1:
-                        Game.RunGame(Players);
+                        Game.RunGame();
                         break;
                     case 2:
+                        Game.RunGame(true);
                         break;
                     case 3:
                         break;
