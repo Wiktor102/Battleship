@@ -36,7 +36,8 @@ namespace Battleship {
 			int i = 0;
 
 			do {
-				if (_potentialCords == null) {
+				if (_potentialCords == null || i > 0) { // Jeśli z jakiegoś powodu jesteśmy w 2 lub kolejnej iteracji to zawsze losowe pole
+					// For debug:
 					//if (i > 0) cord = new Cord(random.Next(0, 10), random.Next(0, 10));
 					//else cord = new Cord(1, 1);
 
@@ -50,12 +51,6 @@ namespace Battleship {
                 foreach (var potentialCordList in new Dictionary<string, List<Cord>>(_potentialCords)) // Ponieważ wewnątrz pętli nie można modyfikować kolekcji to iteruję przez jej płytką kopię
                 {
 					if (cord != null) break;
-
-					if (i > 0) { // Oznacza, że już sprawdzono co najmniej 1 potencjalne pole z tej strony
-						//_potentialCords.Remove(potentialCordList.Key);
-						//i = 0;
-						continue;
-					}
 
 					if (potentialCordList.Value.Count == 0) { 
 						_potentialCords.Remove(potentialCordList.Key);
@@ -72,7 +67,8 @@ namespace Battleship {
 					}
                 }
 
-				while_loop_end:;
+				while_loop_end:
+				i++;
             } while (cell.IsHit || (cell is EmptyBoardCell && ((EmptyBoardCell)cell).IsBlocked));
 
 			enemyBoard.status[cord.y, cord.x].Hit();
