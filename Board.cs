@@ -25,6 +25,7 @@ namespace Battleship {
 					if (j > 10) return false; // Ship exceeds the board to the right
 					if (j < 0 || j >= 10) continue;
 					if (firstFieldCord.y - 1 >= 0 && status[firstFieldCord.y - 1, j] is ShipBoardCell) return false; // Row above the ship
+					if (status[firstFieldCord.y, j] is ShipBoardCell) return false; // Row where the ship will be placed
 					if (firstFieldCord.y + 1 < 10 && status[firstFieldCord.y + 1, j] is ShipBoardCell) return false; // Row below the ship
 				}
 			} else {
@@ -35,6 +36,7 @@ namespace Battleship {
 					if (j > 10) return false; // Ship exceeds the board to the bottom
 					if (j < 0 || j >= 10) continue;
 					if (firstFieldCord.x - 1 >= 0 && status[j, firstFieldCord.x - 1] is ShipBoardCell) return false; // Left collumn
+					if (status[j, firstFieldCord.x] is ShipBoardCell) return false; // Collumn where the ship will be placed
 					if (firstFieldCord.x + 1 < 10 && status[j, firstFieldCord.x + 1] is ShipBoardCell) return false; // Right collumn
 				}
 			}
