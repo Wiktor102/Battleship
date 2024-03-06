@@ -17,15 +17,6 @@ namespace Battleship {
 		private Player _currentPlayer;
 		private Player _otherPlayer;
 
-		public static Dictionary<int, int> AllShips = new Dictionary<int, int> {
-			//[1] = 4,
-			//[2] = 3,
-			//[3] = 2,
-			//[4] = 1,
-			[1] = 1,
-			[3] = 1,
-		};
-
 		private int round = 0;
 
 		public Game(Player[] players) {

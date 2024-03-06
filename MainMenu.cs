@@ -40,7 +40,7 @@ namespace Battleship {
                 Console.WriteLine(msg);
 			}
 
-            IO.DisplayColored("\n↑/↓ nawigacja   ↲ zatwierdż", ConsoleColor.DarkGray);
+            IO.DisplayColored("\n↑/↓ nawigacja   ↲ zatwierdź", ConsoleColor.DarkGray);
         }
 
         private bool ReadKey() {
@@ -67,6 +67,7 @@ namespace Battleship {
                         Game.RunGame(true);
                         break;
                     case 3:
+                        new Settings();
                         break;
                     case 4:
                         DisplayLegendMenu();
