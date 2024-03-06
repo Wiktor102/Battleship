@@ -51,9 +51,9 @@ namespace Battleship {
 				}
 
 				Console.Write("Wybierz pole by umieścić statek ");
-				IO.DisplayColored(shipNumber.ToString(), ConsoleColor.Cyan, ConsoleColor.Black, true);
-				Console.Write(" masztowy nr ");
 				IO.DisplayColored(shipSize.ToString(), ConsoleColor.Cyan, ConsoleColor.Black, true);
+				Console.Write(" masztowy nr ");
+				IO.DisplayColored(shipNumber.ToString(), ConsoleColor.Cyan, ConsoleColor.Black, true);
 				Console.Write(" (np. A1): ");
 
 				firstFieldCord = Cord.PromptForCord();
