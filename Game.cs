@@ -88,6 +88,9 @@ namespace Battleship {
 		public void ChangePlayer() {
 			Console.ForegroundColor = ConsoleColor.Yellow;
 			if (_otherPlayer is Computer) {
+				Console.WriteLine("Twoja tura dobiegła końca. Naciśnij dowolny klawisz by kontynuować...");
+				Console.ReadKey(true);
+
 				Player tmp = _currentPlayer;
 				_currentPlayer = _otherPlayer;
 				_otherPlayer = tmp;
