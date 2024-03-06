@@ -77,11 +77,11 @@ namespace Battleship {
 				switch (result) {
 					case ShootResult.FullSuccess:
 						if (!(_currentPlayer is Computer)) IO.DisplaySuccess("Udało ci się zatopić statek przeciwnika!");
-						if (gameEnded) break;
+						if (gameEnded) goto endTurn;
 						continue;
 					case ShootResult.Success:
 						if (!(_currentPlayer is Computer)) IO.DisplaySuccess("Udało ci się trafić w statek przeciwnika!");
-						if (gameEnded) break;
+						if (gameEnded) goto endTurn;
 						continue;
 					case ShootResult.Failure:
 						if (!(_currentPlayer is Computer)) IO.DisplayWarning("Nie udało ci się trafić w statek przeciwnika!");
@@ -90,6 +90,7 @@ namespace Battleship {
 				}
 			} while (result != ShootResult.Failure);
 
+			endTurn:
 			return gameEnded;
 		}
 
