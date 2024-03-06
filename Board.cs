@@ -76,8 +76,8 @@ namespace Battleship {
 			int firstY = ship.FirstCord.y;
 
 			if (ship.ShipDirection == Direction.Horizontal) {
-				if (firstX - 1 >= 0) ((EmptyBoardCell)status[firstY, firstX - 1])?.MakrAsBlocked();
-				if (firstX + ship.Size + 1 < 10) ((EmptyBoardCell)status[firstY, firstX + ship.Size])?.MakrAsBlocked();
+				if (firstX - 1 >= 0) ((EmptyBoardCell)status[firstY, firstX - 1])?.MakrAsBlocked(); // Cell to the left of the ship
+				if (firstX + ship.Size < 10) ((EmptyBoardCell)status[firstY, firstX + ship.Size])?.MakrAsBlocked(); // Cell to the right of the ship
 
 				for (int i = firstX - 1; i <= firstX + ship.Size; i++) {
 					if (i >= 10 || i < 0) continue;
@@ -86,7 +86,7 @@ namespace Battleship {
 				}
 			} else {
 				if (firstY - 1 >= 0) ((EmptyBoardCell)status[firstY - 1, firstX])?.MakrAsBlocked();
-				if (firstY + ship.Size + 1 < 10) ((EmptyBoardCell)status[firstY + ship.Size, firstX])?.MakrAsBlocked();
+				if (firstY + ship.Size < 10) ((EmptyBoardCell)status[firstY + ship.Size, firstX])?.MakrAsBlocked();
 
 				for (int i = firstY - 1; i <= firstY + ship.Size; i++) {
 					if (i >= 10 || i < 0) continue;
