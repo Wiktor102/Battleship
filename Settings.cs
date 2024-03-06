@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -119,6 +120,7 @@ namespace Battleship {
 			}
 
 			public override void ModifySetting(int dir) {
+				if (ShipsConfiguration.Values.Sum() == 1 && dir == -1) return;
 				if (ShipsConfiguration[_shipSize] == 0 && dir == -1) return;
 				if (ShipsConfiguration[_shipSize] == 4 && dir == 1) return;
 				ShipsConfiguration[_shipSize] += dir;
