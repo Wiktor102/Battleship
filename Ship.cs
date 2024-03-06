@@ -33,7 +33,6 @@ namespace Battleship {
 			}
 		}
 		public bool CheckIfSunken() {
-			Console.WriteLine(_shipCells.Count);
 			foreach (var cell in _shipCells) {
 				if (!cell.IsHit) return false;
 			}
