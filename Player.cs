@@ -21,7 +21,7 @@ namespace Battleship {
         }
 
 		public virtual void SetUpShips(DisplayFunc displayCallback) {
-			foreach (KeyValuePair<int, int> entry in Settings.ShipsConfiguration) {
+			foreach (KeyValuePair<int, int> entry in Settings.ShipsConfiguration.Reverse()) {
 				var shipLength = entry.Key;
 
 				for (int i = 0; i < entry.Value; i++) {
