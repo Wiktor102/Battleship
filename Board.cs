@@ -19,7 +19,7 @@ namespace Battleship {
 		public bool ValidateShipPlacement(Cord firstFieldCord, int shipSize, Direction dir) {
 			if (dir == Direction.Horizontal) {
 				if (firstFieldCord.x - 1 >= 0 && status[firstFieldCord.y, firstFieldCord.x - 1] is ShipBoardCell) return false; // Cell to the left of the ship
-				if (firstFieldCord.x + shipSize + 1 < 10 && status[firstFieldCord.y, firstFieldCord.x + shipSize + 1] is ShipBoardCell) return false; // Cell to the right of the ship
+				if (firstFieldCord.x + shipSize < 10 && status[firstFieldCord.y, firstFieldCord.x + shipSize] is ShipBoardCell) return false; // Cell to the right of the ship
 
 				for (int j = firstFieldCord.x - 1; j <= firstFieldCord.x + shipSize; j++) {
 					if (j > 10) return false; // Ship exceeds the board to the right
